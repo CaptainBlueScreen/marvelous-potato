@@ -3,3 +3,26 @@ genrule(
     outs = ["hello20s.txt"],
     cmd_bash = "sleep 20 && echo 'hello20s' >$@",
 )
+
+genrule(
+    name = "envinfo",
+    srcs = [
+        "README.md",
+    ],
+    outs = ["envinfo.txt"],
+    cmd_bash = """(
+        env
+        echo "-----"
+        pwd
+        ls -l
+        echo "-----"
+        echo "whoami     = $$(whoami)"
+        echo "TARGET_CPU = $(TARGET_CPU)"
+        echo "BINDIR     = $(BINDIR)"
+        echo "GENDIR     = $(GENDIR)"
+        echo "OUTS       = $(OUTS)"
+        echo "SRCS       = $(SRCS)"
+        echo "RULEDIR    = $(RULEDIR)"
+        echo "README.md  = $(location :README.md)"
+        ) | tee $@""",
+)
