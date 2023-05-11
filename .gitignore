@@ -11,3 +11,8 @@
 
 # Local History for Visual Studio Code
 .history/
+
+# Node
+dist
+bazel-out
+node_modules
